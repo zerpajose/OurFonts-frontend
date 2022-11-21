@@ -3,13 +3,13 @@
   import Modal from './Modal.svelte'
 
   import { getTokenUri } from '../lib/functions'
-  import { searchUri } from '../stores/store'
+  import { searchUri, loading } from '../stores/store'
 
-  let searchUriValue;
+  let searchUriValue, loadingValue;
 
-	searchUri.subscribe(value => {searchUriValue = value})
+	searchUri.subscribe(value => searchUriValue = value)
+  loading.subscribe(value => loadingValue = value)
 
-  let loading = false
   let valuegt2 = false
   let value = ''
   let response = []
@@ -38,7 +38,7 @@
 
   $: {
     if (value.length > 2) {
-    loading = true
+    loading.set(true)
     valuegt2 = true
     fetch(`http://localhost:3000/sql/${value}`)
       .then(res => res.json())
@@ -46,12 +46,12 @@
         
         response = apiResponse || []
         
-        loading = false
+        loading.set(false)
       })
       .catch(err => console.log(`Error: ${err}`))
     }
     else{
-      loading = false
+      loading.set(false)
       valuegt2 = false
     }
   }
