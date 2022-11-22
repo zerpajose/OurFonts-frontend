@@ -3,11 +3,11 @@
   import Modal from './Modal.svelte'
 
   import { getTokenUri } from '../lib/functions'
-  import { searchUri, loading } from '../stores/store'
+  import { metadataUri, loading } from '../stores/store'
 
-  let searchUriValue, loadingValue;
+  let metadataUriValue, loadingValue;
 
-	searchUri.subscribe(value => searchUriValue = value)
+	metadataUri.subscribe(value => metadataUriValue = value)
   loading.subscribe(value => loadingValue = value)
 
   let valuegt2 = false
@@ -19,13 +19,16 @@
     
     const [id, name] = fontInfo.split(",")
 
-    const tokenUri = await getTokenUri(id)
+    const metadataUri = await getTokenUri(id)
 
-    searchUri.set(tokenUri)
+    metadataUri.set(metadataUri)
+
+    console.log(`matadataUri: ${metadataUri}`);
+    
 
     // extract external_url(font.css) from tokenUri(metadata) and put it in <link> code
 
-    const link = `<link href="${tokenUri}" rel="stylesheet" type="text/css">`
+    const link = `<link href="${metadataUri}" rel="stylesheet" type="text/css">`
     const style = `p { font-family: '${name}';}`
     
     openModal(Modal, {

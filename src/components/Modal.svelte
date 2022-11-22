@@ -1,31 +1,33 @@
 <script>
-  import { closeModal } from 'svelte-modals'
-  import { searchUri } from '../stores/store'
+  import { closeModal } from "svelte-modals";
+  import { metadataUri, cssUri } from "../stores/store";
 
   // provided by <Modals />
-  export let isOpen
+  export let isOpen;
 
-  export let title
-  export let message
+  export let title;
+  export let message;
 
-  let cssValue
-  let searchUriValue
+  let cssUriValue;
+  let metadataUriValue;
 
-	searchUri.subscribe(value => {searchUriValue = value})
+  cssUri.subscribe((value) => cssUriValue = value );
+  metadataUri.subscribe((value) => metadataUriValue = value );
 
-  fetch(`${searchUriValue}`)
-      .then(res => res.json())
-      .then(apiResponse => {
-        
-        cssValue = apiResponse.external_url
-        
-      })
-      .catch(err => console.log(`Error: ${err}`))
-
+  fetch(`${metadataUriValue}`)
+    .then((res) => res.json())
+    .then((apiResponse) => {
+      cssUriValue = apiResponse.external_url;
+    })
+    .catch((err) => console.log(`Error: ${err}`));
 </script>
 
 <svelte:head>
-  <link href="https://ipfs.io/ipfs/QmQPZGG5kPwo7UTsZV4kwqSocjPwsesMs8z98F11YeBsdR/Ubuntu.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://ipfs.io/ipfs/QmQPZGG5kPwo7UTsZV4kwqSocjPwsesMs8z98F11YeBsdR/Ubuntu.css"
+    rel="stylesheet"
+    type="text/css"
+  />
 </svelte:head>
 
 {#if isOpen}
@@ -77,5 +79,4 @@
     display: flex;
     justify-content: flex-end;
   }
-
 </style>
