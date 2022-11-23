@@ -51,7 +51,6 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(`tableland txHash: ${data.txHash}`);
             onSuccess = true;
             loadingApproveTX = false
           });

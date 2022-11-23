@@ -23,8 +23,6 @@
 
     metadataUri.set(tokenUri);
 
-    console.log(`matadataUri: ${metadataUriValue}`);
-
     fetch(metadataUriValue)
       .then((response) => response.json())
       .then((data) => {
@@ -59,7 +57,7 @@
   }
 </script>
 
-<div class="row mt-4 mb-3">
+<div class="row mt-4 mb-3 g-0">
   <div class="col" />
   <div class="col">
     <div class="input-group mb-3">
@@ -83,7 +81,7 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 {:else}
-  <section>
+  <section class="d-flex justify-content-center">
     {#if !valuegt2}
       <div class="w-50 mx-auto alert alert-info" role="alert">
         <svg
@@ -104,7 +102,7 @@
       </div>
     {:else}
       {#each response as item}
-        <div class="card" style="width: 18rem;">
+        <div class="card m-2" style="width: 18rem;">
           <h1 class="card-img">{item[1]}</h1>
           <div class="card-body">
             <h5 class="card-title">N°{item[0]}</h5>
