@@ -61,7 +61,9 @@ const mintNFTFont = async (uri) => {
   try {
     const signer = await getProviderOrSigner(true);
     // const provider = new providers.AlchemyProvider("maticmum", apiKey);
-    const provider = new providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com")
+    const provider = new providers.JsonRpcProvider(
+      "https://matic-mumbai.chainstacklabs.com"
+    );
 
     const tokenContract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
     const tx = await tokenContract.safeMint(uri);
@@ -73,7 +75,7 @@ const mintNFTFont = async (uri) => {
     // const receipt = await signer.getTransactionReceipt(data.hash);
 
     return {
-      tokenId: parseInt(receipt.logs[0].topics[3], 16),
+      tokenId: parseInt(receipt.logs[0].topics[3], 16).toString(),
       txHash: tx.hash,
     };
   } catch (err) {

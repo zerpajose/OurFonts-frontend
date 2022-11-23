@@ -19,11 +19,11 @@
     
     const [id, name] = fontInfo.split(",")
 
-    const metadataUri = await getTokenUri(id)
+    const tokenUri = await getTokenUri(id)
 
-    metadataUri.set(metadataUri)
+    metadataUri.set(tokenUri)
 
-    console.log(`matadataUri: ${metadataUri}`);
+    console.log(`matadataUri: ${metadataUriValue}`);
     
 
     // extract external_url(font.css) from tokenUri(metadata) and put it in <link> code

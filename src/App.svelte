@@ -22,7 +22,10 @@
 
 <div>
   {#await providerOrSigner}
-    <p>...connecting</p>
+  <p>Please connect your wallet</p>
+  <div class="spinner-border text-info" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
   {:then addr}
     <Navbar address={addr['provider']['selectedAddress']} />
     {#if activeTabValue === "#search"}
