@@ -1,9 +1,7 @@
 <script>
   import { closeModal } from "svelte-modals";
-  import { each } from "svelte/internal";
   import { metadataUri, cssUri } from "../stores/store";
 
-  // provided by <Modals />
   export let isOpen;
 
   export let title;
@@ -13,7 +11,11 @@
   let metadataUriValue;
   let test = 'Test the font';
 
-  let css_code = message[1].split("\n")
+  let linktag_code = message[0].split(" ");
+  let css_code = message[1].split("\n");
+
+  let html_comment = '<!-- index.html -->';
+  let css_comment = '/* styles.css */';
   
 
   cssUri.subscribe((value) => cssUriValue = value );
@@ -35,15 +37,25 @@
   <div role="dialog" class="modal">
     <div class="contents">
       <h1 style="font-family: '{title}';">{title}</h1>
-      <code class="codes">{message[0]}</code>
-      <code class="codes">
-        {#each css_code as i}
-          <p>{i}</p>
-        {/each}
+      <code class="codes py-2 px-3">
+        <p class="text-start">{html_comment}</p>
+        <p class="text-start mb-0">{linktag_code[0]}</p>
+        <p class="text-start mb-0">&nbsp;&nbsp;{linktag_code[1]}</p>
+        <p class="text-start mb-0">&nbsp;&nbsp;{linktag_code[2]}</p>
+        <p class="text-start mb-0">&nbsp;&nbsp;{linktag_code[3]}</p>
+        <p class="text-start mb-0">{linktag_code[4]}</p>
+      </code>
+      <code class="codes py-2 px-3">
+        <p class="text-start">{css_comment}</p>
+        <p class="text-start mb-0">{css_code[0]}</p>
+        <p class="text-start mb-0">&nbsp;&nbsp;{css_code[1]}</p>
+        <p class="text-start mb-0">{css_code[2]}</p>
       </code>
 
-      <input class="mt-5" bind:value={test}>
-      <h1 style="font-family: '{title}';" class="mt-5">{test}</h1>
+      <div class="border border-1">
+        <input class="mt-5" bind:value={test}>
+        <h1 style="font-family: '{title}';" class="mt-5">{test}</h1>
+      </div>
 
       <div class="actions">
         <button on:click={closeModal}>OK</button>

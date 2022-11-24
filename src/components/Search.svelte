@@ -26,7 +26,7 @@
     fetch(metadataUriValue)
       .then((response) => response.json())
       .then((data) => {
-        const link_tag = `<link href="${data.external_url}" rel="stylesheet" type="text/css">`;
+        const link_tag = `<link href="${data.external_url}" rel="stylesheet" type="text/css" >`;
         const style = `p {\nfont-family: '${name}';\n}`;
         const link = data.external_url;
 
