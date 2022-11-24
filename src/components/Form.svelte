@@ -53,6 +53,9 @@
           .then((data) => {
             onSuccess = true;
             loadingApproveTX = false
+          })
+          .catch((error) =>{
+            console.log(error);
           });
       })
       .catch((error) => {
