@@ -26,12 +26,13 @@
     fetch(metadataUriValue)
       .then((response) => response.json())
       .then((data) => {
-        const link = `<link href="${data.external_url}" rel="stylesheet" type="text/css">`;
-        const style = `p { font-family: '${name}';}`;
+        const link_tag = `<link href="${data.external_url}" rel="stylesheet" type="text/css">`;
+        const style = `p {\nfont-family: '${name}';\n}`;
+        const link = data.external_url;
 
         openModal(Modal, {
           title: name,
-          message: [link, style],
+          message: [link_tag, style, link],
         });
       });
   };
@@ -81,7 +82,7 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 {:else}
-  <section class="d-flex justify-content-center">
+  <section class="justify-content-center">
     {#if !valuegt2}
       <div class="w-50 mx-auto alert alert-info" role="alert">
         <svg
@@ -101,35 +102,41 @@
         </svg> <small>Search must have 3 letter or more.</small>
       </div>
     {:else}
-      {#each response as item}
-        <div class="card m-2" style="width: 18rem;">
-          <h1 class="card-img">{item[1]}</h1>
-          <div class="card-body">
-            <h5 class="card-title">N°{item[0]}</h5>
-            <div class="card-text">
-              <button on:click={handleClick} value={item}>Details</button>
+    
+      <div class="row row-cols-4 g-0">
+        {#each response as item}
+        <div class="col px-4 my-3">
+          <div class="card" style="width: 18rem;">
+            <h1 class="card-img">{item[1]}</h1>
+            <div class="card-body">
+              <h5 class="card-title">N°{item[0]}</h5>
+              <div class="card-text">
+                <button on:click={handleClick} value={item}>Details</button>
+              </div>
             </div>
           </div>
         </div>
-      {:else}
-        <div class="w-50 mx-auto alert alert-info" role="alert">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-info-circle"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-            />
-            <path
-              d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-            />
-          </svg> <small>No results.</small>
-        </div>
-      {/each}
+        {:else}
+          <div class="w-50 mx-auto alert alert-info" role="alert">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-info-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+              />
+            </svg> <small>No results.</small>
+          </div>
+        {/each}
+      </div>
+    
     {/if}
   </section>
 {/if}
